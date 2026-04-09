@@ -1,1 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SEO Pro Analyzer — Beat Your Competitors A to Z</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060610;--bg1:#09091a;--bg2:#0e0e22;--bg3:#12122c;
+  --card:#0c0c1e;--card2:#111128;
+  --b1:rgba(255,255,255,.06);--b2:rgba(255,255,255,.1);--b3:rgba(99,179,255,.25);
+  --g:#00e5ff;--g2:#00b8d9;--gr:#00ff9d;--pu:#7c6aff;--pi:#ff4d9e;--ye:#ffd60a;--or:#ff6b35;--re:#ff4444;
+  --t1:#f0f0ff;--t2:#8080a8;--t3:#40405a;
+  --grad:linear-gradient(135deg,#00e5ff,#7c6aff);
+  --grad2:linear-gradient(135deg,#00ff9d,#00e5ff);
+  --sans:'DM Sans',sans-serif;--display:'Clash Display',sans-serif;--mono:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:var(--sans);overflow-x:hidden;min-height:100vh}
+::selection{background:rgba(0,229,255,.2)}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg1)}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
 
+/* ─── NOISE OVERLAY ─── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4;pointer-events:none;z-index:0}
+
+/* ─── GLOW ORBS ─── */
+.orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:.12;pointer-events:none;z-index:0}
+.orb1{width:600px;height:600px;background:var(--pu);top:-200px;right:-200px}
+.orb2{width:400px;height:400px;background:var(--g);bottom:-100px;left:-100px}
+.orb3{width:300px;height:300px;background:var(--gr);top:50%;left:50%;transform:translate(-50%,-50%)}
+
+/* ─── HEADER ─── */
+header{position:sticky;top:0;z-index:200;padding:0 32px;height:60px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,6,16,.85);backdrop-filter:blur(24px);border-bottom:1px solid var(--b1)}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1rem;letter-spacing:-.01em}
+.logo-icon{width:32px;height:32px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 0 20px rgba(0,229,255,.4)}
+.logo-text em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
+.hdr-r{display:flex;align-items:center;gap:12px}
+.api-pill{display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--bg2);border:1px solid var(--b1);border-radius:20px;font-size:.7rem;color:var(--t3);font-family:var(--mono);cursor:pointer;transition:all .2s}
+.api-pill:hover{border-color:var(--b2);color:var(--t2)}
+.api-dot{width:6px;height:6px;border-radius:50%;background:var(--t3);transition:all .3s}
+.api-dot.live{background:var(--gr);box-shadow:0 0 8px var(--gr)}
+.set-btn{padding:7px 16px;background:var(--grad);border:none;border-radius:20px;color:#000;font-family:var(--sans);font-weight:600;font-size:.75rem;cursor:pointer;transition:all .2s}
+.set-btn:hover{opacity:.85;transform:translateY(-1px)}
+
+/* ─── HERO ─── */
+.hero{position:relative;z-index:1;text-align:center;padding:80px 32px 60px;overflow:hidden}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2);border-radius:20px;font-size:.72rem;font-weight:600;color:var(--g);letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.8rem);font-weight:700;line-height:1.05;letter-spacing:-.03em;margin-bottom:16px}
+.hero h1 .line2{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:clamp(.85rem,2vw,1.05rem);color:var(--t2);max-width:620px;margin:0 auto 32px;line-height:1.7}
+.hero-badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:40px}
+.hb{padding:5px 12px;border-radius:20px;font-size:.7rem;font-weight:600;border:1px solid}
+.hb-c{background:rgba(0,229,255,.07);color:var(--g);border-color:rgba(0,229,255,.2)}
+.hb-p{background:rgba(124,106,255,.07);color:var(--pu);border-color:rgba(124,106,255,.2)}
+.hb-g{background:rgba(0,255,157,.07);color:var(--gr);border-color:rgba(0,255,157,.2)}
+.hb-y{background:rgba(255,214,10,.07);color:var(--ye);border-color:rgba(255,214,10,.2)}
+
+/* ─── MAIN FORM CARD ─── */
+.form-wrap{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 24px 80px}
+.main-card{background:rgba(12,12,30,.9);border:1px solid var(--b1);border-radius:20px;overflow:hidden;backdrop-filter:blur(10px)}
+.main-card:hover{border-color:var(--b2)}
+
+/* section headers inside card */
+.sec{padding:28px 32px;border-bottom:1px solid var(--b1)}
+.sec:last-child{border-bottom:none}
+.sec-title{font-family:var(--display);font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.sec-title::before{content:'';width:3px;height:14px;border-radius:2px;background:var(--grad);display:inline-block}
+
+/* ─── FORM ELEMENTS ─── */
+label{font-size:.74rem;font-weight:500;color:var(--t2);display:block;margin-bottom:6px}
+input[type=text],input[type=url],input[type=password],textarea,select{
+  width:100%;background:rgba(255,255,255,.04);
+  border:1px solid var(--b1);border-radius:10px;
+  color:var(--t1);font-family:var(--mono);font-size:.75rem;
+  padding:11px 14px;transition:all .2s;outline:none;resize:vertical;
+}
+input:focus,textarea:focus,select:focus{border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.03);box-shadow:0 0 0 3px rgba(0,229,255,.07)}
+textarea{min-height:90px;line-height:1.7}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2340405a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
+select option{background:#0e0e22}
+.fg{margin-bottom:14px}
+.gr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gr3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:640px){.gr2,.gr3{grid-template-columns:1fr}}
+
+/* ─── MODULES GRID ─── */
+.mods-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:6px}
+.mod-item{display:flex;align-items:center;gap:8px;padding:9px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.74rem;font-weight:500;color:var(--t2)}
+.mod-item:hover{border-color:var(--b2);color:var(--t1)}
+.mod-item input{accent-color:var(--g);width:14px;height:14px;cursor:pointer;flex-shrink:0}
+.mod-item.on{border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.05);color:var(--t1)}
+.mods-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.mods-lbl{font-size:.7rem;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.08em}
+.mods-links{display:flex;gap:10px}
+.ml{font-size:.7rem;color:var(--g);cursor:pointer;opacity:.6;transition:opacity .2s}
+.ml:hover{opacity:1}
+
+/* ─── COMPETITOR ROWS ─── */
+.comp-list{display:flex;flex-direction:column;gap:8px}
+.crow{display:grid;grid-template-columns:26px 1fr 1fr 28px;gap:8px;align-items:start;background:rgba(255,255,255,.02);border:1px solid var(--b1);border-radius:10px;padding:12px}
+.cnum{width:22px;height:22px;background:var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:600;color:var(--t3);margin-top:3px;flex-shrink:0}
+.crow textarea{min-height:50px}
+.rm{background:rgba(255,68,68,.1);color:var(--re);border:1px solid rgba(255,68,68,.2);border-radius:6px;padding:4px 7px;cursor:pointer;font-size:.65rem;margin-top:3px;font-family:var(--sans);font-weight:600}
+
+/* ─── RUN BUTTON ─── */
+.run-wrap{padding:28px 32px;background:rgba(0,229,255,.04);border-top:1px solid rgba(0,229,255,.1)}
+.run-btn{width:100%;padding:16px;background:var(--grad);border:none;border-radius:12px;color:#000;font-family:var(--display);font-weight:700;font-size:1.05rem;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.02em}
+.run-btn:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,229,255,.35)}
+.run-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.run-sub{text-align:center;margin-top:12px;font-size:.72rem;color:var(--t3)}
+
+/* ─── LOADER ─── */
+.loader{display:none;padding:60px 32px;text-align:center;background:rgba(0,229,255,.02);border-top:1px solid rgba(0,229,255,.1)}
+.loader.on{display:block}
+.spin{width:56px;height:56px;border:2px solid var(--b1);border-top-color:var(--g);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 20px;box-shadow:0 0 20px rgba(0,229,255,.2)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.l-title{font-family:var(--display);font-size:1.1rem;font-weight:700;color:var(--t1);margin-bottom:6px}
+.l-sub{font-size:.78rem;color:var(--t2);font-family:var(--mono)}
+.l-steps{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:24px auto 0;max-width:600px;text-align:left}
+@media(max-width:560px){.l-steps{grid-template-columns:1fr}}
+.lstep{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;font-size:.74rem;color:var(--t3);transition:all .3s}
+.lstep.on{background:rgba(0,229,255,.06);border-color:rgba(0,229,255,.2);color:var(--g)}
+.lstep.done{color:var(--t2);border-color:rgba(0,255,157,.15)}
+.pbar{width:100%;height:3px;background:var(--b1);border-radius:2px;margin-top:24px;overflow:hidden}
+.pfill{height:100%;background:var(--grad);width:0%;transition:width .5s;border-radius:2px}
+
+/* ─── RESULT ─── */
+.result{display:none;border-top:1px solid var(--b1)}
+.result.on{display:block}
+.r-header{padding:24px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:rgba(0,229,255,.03)}
+.r-title{font-family:var(--display);font-size:1rem;font-weight:700;display:flex;align-items:center;gap:8px}
+.r-badge{padding:3px 10px;background:rgba(0,255,157,.1);color:var(--gr);border:1px solid rgba(0,255,157,.2);border-radius:20px;font-size:.65rem;font-weight:700;letter-spacing:.06em}
+.r-acts{display:flex;gap:8px;flex-wrap:wrap}
+.r-output{padding:32px;border-top:1px solid var(--b1)}
+
+/* ─── MARKDOWN ─── */
+.md{font-size:.85rem;line-height:1.8;color:var(--t1)}
+.md h1{font-family:var(--display);font-size:1.4rem;font-weight:700;background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--b1)}
+.md h2{font-family:var(--display);font-size:1.05rem;font-weight:700;color:var(--g);margin:28px 0 10px;display:flex;align-items:center;gap:8px}
+.md h2::before{content:'';width:3px;height:16px;background:var(--grad);border-radius:2px;display:inline-block;flex-shrink:0}
+.md h3{font-size:.92rem;font-weight:600;color:var(--pu);margin:18px 0 8px}
+.md h4{font-size:.85rem;font-weight:600;color:var(--ye);margin:12px 0 6px}
+.md p{margin-bottom:10px;color:var(--t2);line-height:1.75}
+.md ul,.md ol{padding-left:20px;margin-bottom:12px}
+.md li{margin-bottom:5px;color:var(--t2)}
+.md strong{color:var(--t1);font-weight:600}
+.md em{color:var(--g)}
+.md code{background:rgba(0,229,255,.08);color:var(--g);padding:2px 7px;border-radius:5px;font-family:var(--mono);font-size:.78rem;border:1px solid rgba(0,229,255,.15)}
+.md pre{background:rgba(0,0,0,.4);border:1px solid var(--b1);border-radius:10px;padding:16px;overflow-x:auto;margin-bottom:12px}
+.md pre code{background:none;border:none;padding:0}
+.md blockquote{border-left:2px solid var(--g);padding:10px 16px;margin:12px 0;background:rgba(0,229,255,.05);border-radius:0 8px 8px 0}
+.md blockquote p{margin:0;color:var(--t1)}
+.md table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:.78rem}
+.md th{background:rgba(0,229,255,.08);border:1px solid var(--b2);padding:9px 13px;text-align:left;color:var(--g);font-weight:600;font-family:var(--display)}
+.md td{border:1px solid var(--b1);padding:8px 13px;color:var(--t2)}
+.md tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.md hr{border:none;border-top:1px solid var(--b1);margin:24px 0}
+
+/* ─── BUTTONS ─── */
+.btn{padding:9px 18px;border-radius:8px;border:none;font-family:var(--sans);font-weight:600;font-size:.78rem;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:7px}
+.btn-o{background:rgba(255,255,255,.05);color:var(--t1);border:1px solid var(--b1)}
+.btn-o:hover{border-color:var(--b2);background:rgba(255,255,255,.08)}
+.btn-g{background:rgba(0,229,255,.1);color:var(--g);border:1px solid rgba(0,229,255,.2)}
+.btn-g:hover{background:rgba(0,229,255,.16)}
+.btn-sm{padding:5px 12px;font-size:.71rem}
+
+/* ─── GSC ─── */
+.dz{border:1.5px dashed rgba(255,255,255,.08);border-radius:12px;padding:28px;text-align:center;cursor:pointer;transition:all .2s}
+.dz:hover,.dz.drag{border-color:rgba(0,229,255,.3);background:rgba(0,229,255,.03)}
+.dz-icon{font-size:28px;margin-bottom:8px}
+.dz-txt{font-size:.82rem;color:var(--t2)}
+.dz-sub{font-size:.7rem;color:var(--t3);margin-top:3px}
+.gsc-wrap{overflow-x:auto;margin-top:14px}
+.gsc-tbl{width:100%;border-collapse:collapse;font-size:.74rem}
+.gsc-tbl th{background:var(--bg3);border:1px solid var(--b2);padding:7px 10px;color:var(--t2);font-weight:600;white-space:nowrap}
+.gsc-tbl td{border:1px solid var(--b1);padding:6px 10px;white-space:nowrap}
+.pb{display:inline-block;padding:1px 6px;border-radius:4px;font-size:.67rem;font-weight:600;font-family:var(--mono)}
+.pt{background:rgba(0,255,157,.12);color:var(--gr)}
+.pm{background:rgba(255,214,10,.12);color:var(--ye)}
+.pl{background:rgba(255,68,68,.1);color:var(--re)}
+
+/* ─── MODAL ─── */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.modal-bg.on{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--b2);border-radius:16px;padding:28px;width:92%;max-width:440px;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+.modal h3{font-family:var(--display);font-size:1rem;font-weight:700;margin-bottom:4px}
+.modal p{font-size:.78rem;color:var(--t2);margin-bottom:16px}
+.m-acts{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
+.ks{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+.ki{display:flex;gap:10px;align-items:flex-start;font-size:.78rem;color:var(--t2)}
+.kn{width:22px;height:22px;background:var(--grad);color:#000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;flex-shrink:0}
+.ki a{color:var(--g)}
+
+/* ─── ALERT ─── */
+.alert{padding:10px 14px;border-radius:8px;font-size:.76rem;margin-bottom:14px;display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.al-i{background:rgba(0,229,255,.07);border:1px solid rgba(0,229,255,.15);color:var(--g)}
+.al-y{background:rgba(255,214,10,.06);border:1px solid rgba(255,214,10,.15);color:var(--ye)}
+
+/* ─── SECTION SWITCHER (sidebar-style on large screens) ─── */
+.layout{display:grid;grid-template-columns:220px 1fr;gap:0;min-height:100vh;position:relative;z-index:1}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+.sidebar{position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto;background:rgba(9,9,26,.95);border-right:1px solid var(--b1);padding:20px 0}
+.sidebar::-webkit-scrollbar{width:0}
+@media(max-width:900px){.sidebar{position:static;height:auto;border-right:none;border-bottom:1px solid var(--b1);padding:16px 0;overflow-x:auto;display:flex;gap:0;white-space:nowrap}}
+.sb-section{padding:6px 12px}
+.sb-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);padding:8px 16px;margin-top:8px}
+.sb-btn{display:flex;align-items:center;gap:8px;width:100%;padding:9px 16px;background:none;border:none;color:var(--t3);font-family:var(--sans);font-size:.78rem;font-weight:500;cursor:pointer;border-radius:8px;transition:all .2s;text-align:left}
+@media(max-width:900px){.sb-btn{display:inline-flex;white-space:nowrap;border-radius:20px;padding:7px 14px;margin:0 3px}}
+.sb-btn:hover{background:rgba(255,255,255,.04);color:var(--t2)}
+.sb-btn.on{background:rgba(0,229,255,.08);color:var(--g);border:1px solid rgba(0,229,255,.15)}
+.sb-icon{font-size:14px;flex-shrink:0}
+.sb-new{background:rgba(0,229,255,.12);color:var(--g);font-size:.55rem;padding:1px 5px;border-radius:4px;font-weight:700;letter-spacing:.04em;margin-left:auto}
+@media(max-width:900px){.sb-new{display:none}}
+.content-area{overflow:hidden}
+
+/* ─── PANEL ─── */
+.panel{display:none;padding:28px;max-width:100%;min-height:calc(100vh - 60px)}
+.panel.on{display:block}
+.panel-title{font-family:var(--display);font-size:1.5rem;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
+.panel-title em{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
+.panel-sub{font-size:.85rem;color:var(--t2);margin-bottom:24px;line-height:1.6}
+
+/* ─── RESULT SECTION ACCORDION ─── */
+.acc-item{background:var(--card);border:1px solid var(--b1);border-radius:12px;margin-bottom:8px;overflow:hidden;transition:border-color .2s}
+.acc-item:hover{border-color:var(--b2)}
+.acc-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer}
+.acc-left{display:flex;align-items:center;gap:10px}
+.acc-num{width:26px;height:26px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#000;flex-shrink:0}
+.acc-title{font-size:.85rem;font-weight:600}
+.acc-loc{font-size:.68rem;color:var(--t3);font-family:var(--mono);margin-top:1px}
+.acc-right{display:flex;align-items:center;gap:8px}
+.prio{padding:2px 8px;border-radius:12px;font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.p-crit{background:rgba(255,68,68,.14);color:var(--re);border:1px solid rgba(255,68,68,.22)}
+.p-hi{background:rgba(255,214,10,.1);color:var(--ye);border:1px solid rgba(255,214,10,.18)}
+.p-med{background:rgba(0,229,255,.08);color:var(--g);border:1px solid rgba(0,229,255,.16)}
+.acc-arrow{color:var(--t3);font-size:11px;transition:transform .3s}
+.acc-item.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:0 18px 18px;border-top:1px solid var(--b1)}
+.acc-item.open .acc-body{display:block}
+
+/* location pill */
+.loc-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(124,106,255,.1);border:1px solid rgba(124,106,255,.2);color:var(--pu);padding:5px 12px;border-radius:8px;font-size:.72rem;font-family:var(--mono);margin:12px 0 10px}
+
+/* what/why/how */
+.www{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0}
+@media(max-width:560px){.www{grid-template-columns:1fr}}
+.www-box{padding:10px 12px;border-radius:8px}
+.www-lbl{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.www-txt{font-size:.76rem;color:var(--t2);line-height:1.5}
+.wb-r{background:rgba(255,68,68,.05);border:1px solid rgba(255,68,68,.12)}.wb-r .www-lbl{color:var(--re)}
+.wb-y{background:rgba(255,214,10,.05);border:1px solid rgba(255,214,10,.12)}.wb-y .www-lbl{color:var(--ye)}
+.wb-g{background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.12)}.wb-g .www-lbl{color:var(--g)}
+
+/* paste block */
+.paste{background:rgba(0,0,0,.4);border:1px solid rgba(0,229,255,.15);border-radius:8px;padding:12px 14px;margin-top:10px}
+.paste-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.paste-lbl{font-size:.62rem;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.08em}
+.paste-txt{font-size:.76rem;color:var(--t1);font-family:var(--mono);line-height:1.65;white-space:pre-wrap}
+.cp-btn{background:rgba(0,229,255,.1);border:1px solid rgba(0,229,255,.2);color:var(--g);padding:3px 9px;border-radius:5px;font-size:.65rem;cursor:pointer;font-family:var(--sans);font-weight:600;transition:all .2s}
+.cp-btn:hover{background:rgba(0,229,255,.18)}
+
+/* score row */
+.scores{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-bottom:20px}
+.sc{background:var(--card2);border:1px solid var(--b1);border-radius:10px;padding:14px;text-align:center}
+.sc-n{font-size:1.8rem;font-weight:700;font-family:var(--mono);line-height:1}
+.sc-l{font-size:.63rem;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-top:5px}
+.s-g{color:var(--gr)}.s-y{color:var(--ye)}.s-r{color:var(--re)}.s-c{color:var(--g)}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🔍</div>
+    <div class="logo-text">SEO Pro <em>Analyzer</em></div>
+  </div>
+  <div class="hdr-r">
+    <div class="api-pill" onclick="openM()">
+      <div class="api-dot" id="api-dot"></div>
+      <span id="api-txt">Set API Key</span>
+    </div>
+    <button class="set-btn" onclick="openM()">⚙ Settings</button>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- ── SIDEBAR ── -->
+<div class="sidebar">
+  <div class="sb-label">Analysis Tools</div>
+  <button class="sb-btn on" onclick="goP('gap',this)"><span class="sb-icon">🔍</span>Competitor Gap</button>
+  <button class="sb-btn" onclick="goP('onpage',this)"><span class="sb-icon">🏷</span>On-Page Audit</button>
+  <button class="sb-btn" onclick="goP('gsc',this)"><span class="sb-icon">📊</span>GSC Analyzer</button>
+  <button class="sb-btn" onclick="goP('bulk',this)"><span class="sb-icon">📦</span>Bulk URLs</button>
+  <div class="sb-label">AI Generation</div>
+  <button class="sb-btn" onclick="goP('pkg',this)"><span class="sb-icon">📋</span>Full SEO Package<span class="sb-new">20 SECTIONS</span></button>
+  <button class="sb-btn" onclick="goP('content',this)"><span class="sb-icon">✨</span>AI Content Creator<span class="sb-new">NEW</span></button>
+  <button class="sb-btn" onclick="goP('keywords',this)"><span class="sb-icon">🔑</span>Keyword Research<span class="sb-new">NEW</span></button>
+</div>
+
+<!-- ── CONTENT AREA ── -->
+<div class="content-area">
+
+<!-- ════ PANEL: COMPETITOR GAP ════ -->
+<div class="panel on" id="p-gap">
+  <div class="panel-title">🔍 Competitor Gap — <em>Surgical Analysis</em></div>
+  <div class="panel-sub">Apna page + competitors doo. AI exactly batayega <strong>kahan kya add karna hai</strong> — heading ka naam, paragraph number, line number, aur ready-to-paste content.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px;margin-bottom:14px">
+        <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:16px;display:flex;align-items:center;gap:7px"><span style="width:3px;height:12px;background:var(--grad);border-radius:2px;display:inline-block"></span>Your Page</div>
+        <div class="fg"><label>🔗 Page URL</label><input type="url" id="g-url" placeholder="https://yoursite.com/page"></div>
+        <div class="fg"><label>📄 Page Content * <span style="color:var(--g);font-size:.67rem">(HTML ya text — exact analysis ke liye)</span></label><textarea id="g-content" rows="6" placeholder="Apna poora page content ya HTML paste karo yahan..."></textarea></div>
+        <div class="fg"><label>🎯 Target Keyword</label><input type="text" id="g-kw" placeholder="e.g. glass bottles market"></div>
+        <div class="fg"><label>🌐 Output Language</label><select id="g-lang"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+        <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:7px"><span style="width:3px;height:12px;background:var(--grad);border-radius:2px;display:inline-block"></span>Competitors (up to 4)</div>
+        <div class="comp-list" id="g-comps">
+          <div class="crow"><div class="cnum">1</div><input type="url" placeholder="https://competitor.com"><textarea placeholder="Competitor content (optional but recommended)" rows="2"></textarea><div></div></div>
+        </div>
+        <button class="btn btn-o btn-sm" style="margin-top:10px" onclick="addC('g-comps',4)">+ Add Competitor</button>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+        <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:14px;display:flex;align-items:center;gap:7px"><span style="width:3px;height:12px;background:var(--grad);border-radius:2px;display:inline-block"></span>What to Analyze</div>
+        <div class="mods-hdr"><span class="mods-lbl">Analysis Modules</span><div class="mods-links"><span class="ml" onclick="selA('g-mods')">All</span><span class="ml" onclick="desA('g-mods')">None</span></div></div>
+        <div class="mods-grid" id="g-mods">
+          <label class="mod-item on"><input type="checkbox" value="headings" checked>📐 Heading Gaps</label>
+          <label class="mod-item on"><input type="checkbox" value="sections" checked>📋 Missing Sections</label>
+          <label class="mod-item on"><input type="checkbox" value="keywords" checked>🔑 Keyword Gaps</label>
+          <label class="mod-item on"><input type="checkbox" value="internal" checked>🔗 Internal Linking</label>
+          <label class="mod-item on"><input type="checkbox" value="eeat" checked>⭐ EEAT Signals</label>
+          <label class="mod-item on"><input type="checkbox" value="schema" checked>🔧 Schema Markup</label>
+          <label class="mod-item on"><input type="checkbox" value="snippet" checked>🌟 Featured Snippet</label>
+          <label class="mod-item on"><input type="checkbox" value="cta" checked>📣 CTA Placement</label>
+          <label class="mod-item on"><input type="checkbox" value="faq" checked>❓ FAQ Coverage</label>
+          <label class="mod-item on"><input type="checkbox" value="tone" checked>🎙 Tone & Style</label>
+        </div>
+        <div class="alert al-i" style="margin-top:16px">💡 Competitor content bhi paste karo — AI real gaps dhundh sakta hai sirf URL se nahi</div>
+        <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:8px;border:none;cursor:pointer;transition:all .2s" onclick="runGap()" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">🔍 Run Surgical Analysis</button>
+      </div>
+    </div>
+  </div>
+  <div class="loader" id="g-loader">
+    <div class="spin"></div>
+    <div class="l-title">Surgical Analysis Running...</div>
+    <div class="l-sub">Exact locations identify ho rahe hain...</div>
+    <div class="l-steps">
+      <div class="lstep on">🗂 Page structure map banana</div>
+      <div class="lstep">🔍 Competitor content compare karna</div>
+      <div class="lstep">📍 Exact locations mark karna</div>
+      <div class="lstep">✍ Ready-to-paste content likhna</div>
+    </div>
+    <div class="pbar"><div class="pfill" id="g-prog"></div></div>
+  </div>
+  <div class="result" id="g-result">
+    <div class="r-header">
+      <div class="r-title">🔍 Gap Report <span class="r-badge">SURGICAL</span></div>
+      <div class="r-acts">
+        <button class="btn btn-o btn-sm" onclick="cpAll('g-out')">📋 Copy</button>
+        <button class="btn btn-g btn-sm" onclick="dlMd('g-out','gap-report.md')">⬇ Download</button>
+        <button class="btn btn-o btn-sm" onclick="resetR('g')">🔄 New</button>
+      </div>
+    </div>
+    <div class="r-output"><div class="md" id="g-out"></div></div>
+  </div>
+</div>
+
+<!-- ════ PANEL: ON-PAGE AUDIT ════ -->
+<div class="panel" id="p-onpage">
+  <div class="panel-title">🏷 On-Page Audit — <em>Exact Fixes</em></div>
+  <div class="panel-sub">Content paste karo → SEO Score /100 + har issue ke liye exact fix with ready-to-paste rewrites.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="fg"><label>🔗 Page URL</label><input type="url" id="a-url" placeholder="https://yoursite.com/page"></div>
+      <div class="fg"><label>🎯 Target Keyword *</label><input type="text" id="a-kw" placeholder="Main keyword"></div>
+      <div class="fg"><label>📄 Full Page HTML / Content *</label><textarea id="a-content" rows="9" placeholder="Page ka HTML ya text paste karo...&#10;&#10;Ctrl+U se browser source copy kar sakte ho"></textarea></div>
+      <div class="gr2">
+        <div class="fg"><label>📏 Word Count</label><input type="text" id="a-wc" placeholder="e.g. 1500"></div>
+        <div class="fg"><label>🌍 Country</label><input type="text" id="a-country" placeholder="USA, India..."></div>
+      </div>
+      <div class="fg"><label>🌐 Language</label><select id="a-lang"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="mods-hdr"><span class="mods-lbl">Audit Modules</span><div class="mods-links"><span class="ml" onclick="selA('a-mods')">All</span></div></div>
+      <div class="mods-grid" id="a-mods">
+        <label class="mod-item on"><input type="checkbox" value="score" checked>📊 SEO Score /100</label>
+        <label class="mod-item on"><input type="checkbox" value="title" checked>🏷 Title Rewrite</label>
+        <label class="mod-item on"><input type="checkbox" value="meta" checked>📝 Meta Rewrite</label>
+        <label class="mod-item on"><input type="checkbox" value="h1" checked>H1 Fix</label>
+        <label class="mod-item on"><input type="checkbox" value="headings" checked>📐 H2-H6 Structure</label>
+        <label class="mod-item on"><input type="checkbox" value="keyword" checked>🔑 Keyword Placement</label>
+        <label class="mod-item on"><input type="checkbox" value="content" checked>✍ Content Quality</label>
+        <label class="mod-item on"><input type="checkbox" value="internal" checked>🔗 Internal Links</label>
+        <label class="mod-item on"><input type="checkbox" value="schema" checked>🔧 Schema JSON-LD</label>
+        <label class="mod-item on"><input type="checkbox" value="eeat" checked>⭐ EEAT</label>
+        <label class="mod-item on"><input type="checkbox" value="snippet" checked>🌟 Snippet</label>
+        <label class="mod-item on"><input type="checkbox" value="cwv" checked>⚡ Core Web Vitals</label>
+      </div>
+      <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:16px;border:none;cursor:pointer" onclick="runAudit()">🏷 Run Full Audit</button>
+    </div>
+  </div>
+  <div class="loader" id="a-loader"><div class="spin"></div><div class="l-title">Audit Running...</div><div class="pbar"><div class="pfill" id="a-prog"></div></div></div>
+  <div class="result" id="a-result">
+    <div class="r-header"><div class="r-title">🏷 Audit Report</div><div class="r-acts"><button class="btn btn-o btn-sm" onclick="cpAll('a-out')">📋 Copy</button><button class="btn btn-g btn-sm" onclick="dlMd('a-out','audit.md')">⬇ Download</button><button class="btn btn-o btn-sm" onclick="resetR('a')">🔄 New</button></div></div>
+    <div class="r-output"><div class="md" id="a-out"></div></div>
+  </div>
+</div>
+
+<!-- ════ PANEL: GSC ════ -->
+<div class="panel" id="p-gsc">
+  <div class="panel-title">📊 GSC Opportunity Finder</div>
+  <div class="panel-sub">CSV upload karo → position 5-20 quick wins, low CTR fixes, cannibalization, 30-day plan.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px;margin-bottom:14px">
+        <div class="dz" onclick="document.getElementById('gsc-f').click()" id="gsc-dz" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="hDrop(event,'gsc')">
+          <div class="dz-icon">📁</div><div class="dz-txt">GSC CSV drop ya click karo</div><div class="dz-sub">Search Console → Performance → Export CSV</div>
+        </div>
+        <input type="file" id="gsc-f" accept=".csv" style="display:none" onchange="lCsv(this,'gsc')">
+        <div id="gsc-prev" class="hidden">
+          <div class="alert al-i" style="margin-top:12px">✅ <span id="gsc-cnt">0</span> queries loaded</div>
+          <div class="gsc-wrap"><table class="gsc-tbl" id="gsc-tbl"><thead><tr><th>#</th><th>Query</th><th>Clicks</th><th>Impr</th><th>CTR</th><th>Pos</th></tr></thead><tbody></tbody></table></div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+        <div class="fg"><label>🌐 Domain</label><input type="text" id="gsc-domain" placeholder="yoursite.com"></div>
+        <div class="fg"><label>🏭 Industry</label><input type="text" id="gsc-niche" placeholder="blog, SaaS..."></div>
+        <div class="fg"><label>🎯 Goal</label><select id="gsc-goal"><option value="traffic">More Traffic</option><option value="ctr">Improve CTR</option><option value="rankings">Better Rankings</option></select></div>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="mods-hdr"><span class="mods-lbl">Modules</span><div class="mods-links"><span class="ml" onclick="selA('gsc-mods')">All</span></div></div>
+      <div class="mods-grid" id="gsc-mods">
+        <label class="mod-item on"><input type="checkbox" value="quick_wins" checked>🏆 Quick Wins</label>
+        <label class="mod-item on"><input type="checkbox" value="low_ctr" checked>📈 Low CTR Fixes</label>
+        <label class="mod-item on"><input type="checkbox" value="clusters" checked>🗂 Keyword Clusters</label>
+        <label class="mod-item on"><input type="checkbox" value="gaps" checked>🔍 Content Gaps</label>
+        <label class="mod-item on"><input type="checkbox" value="cannibalization" checked>⚠ Cannibalization</label>
+        <label class="mod-item on"><input type="checkbox" value="titles" checked>🏷 Title Rewrites</label>
+        <label class="mod-item on"><input type="checkbox" value="matrix" checked>📊 Priority Matrix</label>
+        <label class="mod-item on"><input type="checkbox" value="plan" checked>📅 30-Day Plan</label>
+      </div>
+      <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:16px;border:none;cursor:pointer" onclick="runGsc()">📊 Analyze GSC</button>
+    </div>
+  </div>
+  <div class="loader" id="gsc-loader"><div class="spin"></div><div class="l-title">Analyzing GSC Data...</div><div class="pbar"><div class="pfill" id="gsc-prog"></div></div></div>
+  <div class="result" id="gsc-result">
+    <div class="r-header"><div class="r-title">📊 GSC Report</div><div class="r-acts"><button class="btn btn-o btn-sm" onclick="cpAll('gsc-out')">📋 Copy</button><button class="btn btn-g btn-sm" onclick="dlMd('gsc-out','gsc.md')">⬇ Download</button><button class="btn btn-o btn-sm" onclick="resetR('gsc')">🔄 New</button></div></div>
+    <div class="r-output"><div class="md" id="gsc-out"></div></div>
+  </div>
+</div>
+
+<!-- ════ PANEL: BULK ════ -->
+<div class="panel" id="p-bulk">
+  <div class="panel-title">📦 Bulk URL Analysis</div>
+  <div class="panel-sub">5 URLs ek saath audit — individual scores + comparison table.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div id="bulk-list" style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;gap:8px;align-items:center"><div style="width:26px;height:26px;background:var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--t3);flex-shrink:0">1</div><input type="url" placeholder="https://yoursite.com/page-1"></div>
+        <div style="display:flex;gap:8px;align-items:center"><div style="width:26px;height:26px;background:var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--t3);flex-shrink:0">2</div><input type="url" placeholder="https://yoursite.com/page-2"></div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="btn btn-o btn-sm" onclick="addBulk()">+ Add URL</button>
+        <button class="btn btn-o btn-sm" onclick="clrBulk()">🗑 Clear</button>
+      </div>
+      <div class="fg" style="margin-top:14px"><label>🎯 Common Keyword</label><input type="text" id="bulk-kw" placeholder="Optional"></div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="mods-grid" id="bulk-mods">
+        <label class="mod-item on"><input type="checkbox" value="score" checked>📊 SEO Score</label>
+        <label class="mod-item on"><input type="checkbox" value="title" checked>🏷 Title+Meta</label>
+        <label class="mod-item on"><input type="checkbox" value="headings" checked>📐 Headings</label>
+        <label class="mod-item on"><input type="checkbox" value="issues" checked>⚠ Issues</label>
+        <label class="mod-item on"><input type="checkbox" value="compare" checked>📊 Compare Table</label>
+      </div>
+      <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:16px;border:none;cursor:pointer" onclick="runBulk()">📦 Analyze All</button>
+    </div>
+  </div>
+  <div class="loader" id="bulk-loader"><div class="spin"></div><div class="l-title">Bulk Analysis...</div><div class="pbar"><div class="pfill" id="bulk-prog"></div></div></div>
+  <div class="result" id="bulk-result">
+    <div class="r-header"><div class="r-title">📦 Bulk Report</div><div class="r-acts"><button class="btn btn-o btn-sm" onclick="cpAll('bulk-out')">📋 Copy</button><button class="btn btn-g btn-sm" onclick="dlMd('bulk-out','bulk.md')">⬇ Download</button><button class="btn btn-o btn-sm" onclick="resetR('bulk')">🔄 New</button></div></div>
+    <div class="r-output"><div class="md" id="bulk-out"></div></div>
+  </div>
+</div>
+
+<!-- ════ PANEL: FULL SEO PACKAGE ════ -->
+<div class="panel" id="p-pkg">
+  <div class="panel-title">📋 Full SEO Package — <em>20 Sections</em></div>
+  <div class="panel-sub">Topic doo → 50 keywords, topical map, content brief, competitor gaps, semantic keywords, EEAT, FAQs + schema, link building, 30 blog topics, Google Discover, programmatic SEO — sab ek report mein.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="fg"><label>🎯 Primary Keyword / Topic *</label><input type="text" id="p-topic" placeholder="e.g. glass bottles market"></div>
+      <div class="gr2">
+        <div class="fg"><label>🌍 Target Country</label><input type="text" id="p-country" placeholder="USA, India..."></div>
+        <div class="fg"><label>🏭 Industry</label><input type="text" id="p-niche" placeholder="packaging, pharma..."></div>
+      </div>
+      <div class="fg"><label>🔗 Competitor URLs (comma separated)</label><textarea id="p-comps" rows="3" placeholder="https://comp1.com,&#10;https://comp2.com,&#10;https://comp3.com"></textarea></div>
+      <div class="fg"><label>📄 Your Existing Article (optional)</label><textarea id="p-article" rows="4" placeholder="Existing content paste karo for gap analysis..."></textarea></div>
+      <div class="gr2">
+        <div class="fg"><label>📏 Depth</label><select id="p-depth"><option value="standard">Standard</option><option value="comprehensive">Comprehensive</option><option value="pillar">Pillar Page</option></select></div>
+        <div class="fg"><label>🌐 Language</label><select id="p-lang"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="mods-hdr"><span class="mods-lbl">20 Sections</span><div class="mods-links"><span class="ml" onclick="selA('p-mods')">All</span><span class="ml" onclick="desA('p-mods')">None</span></div></div>
+      <div class="mods-grid" id="p-mods">
+        <label class="mod-item on"><input type="checkbox" value="kw" checked>🔑 50 Keywords</label>
+        <label class="mod-item on"><input type="checkbox" value="intent" checked>🎯 Search Intent</label>
+        <label class="mod-item on"><input type="checkbox" value="topical" checked>🗺 Topical Map</label>
+        <label class="mod-item on"><input type="checkbox" value="brief" checked>📋 Content Brief</label>
+        <label class="mod-item on"><input type="checkbox" value="outline" checked>📝 Blog Outline</label>
+        <label class="mod-item on"><input type="checkbox" value="comp" checked>🔍 Competitor Analysis</label>
+        <label class="mod-item on"><input type="checkbox" value="semantic" checked>🧬 Semantic/NLP (30)</label>
+        <label class="mod-item on"><input type="checkbox" value="gap" checked>🔎 Content Gap</label>
+        <label class="mod-item on"><input type="checkbox" value="internal" checked>🔗 Internal Linking</label>
+        <label class="mod-item on"><input type="checkbox" value="eeat" checked>⭐ EEAT</label>
+        <label class="mod-item on"><input type="checkbox" value="snippet" checked>🌟 Featured Snippet</label>
+        <label class="mod-item on"><input type="checkbox" value="titles" checked>📣 Titles (20)</label>
+        <label class="mod-item on"><input type="checkbox" value="metas" checked>📝 Metas (10)</label>
+        <label class="mod-item on"><input type="checkbox" value="faqs" checked>❓ FAQs+Schema (10)</label>
+        <label class="mod-item on"><input type="checkbox" value="links" checked>🏆 Link Building (20)</label>
+        <label class="mod-item on"><input type="checkbox" value="refresh" checked>🔄 Content Refresh</label>
+        <label class="mod-item on"><input type="checkbox" value="audit" checked>✅ SEO Checklist</label>
+        <label class="mod-item on"><input type="checkbox" value="clusters" checked>📚 30 Blog Topics</label>
+        <label class="mod-item on"><input type="checkbox" value="discover" checked>📱 Google Discover</label>
+        <label class="mod-item on"><input type="checkbox" value="programmatic" checked>⚙ Programmatic SEO</label>
+      </div>
+      <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:12px;border:none;cursor:pointer" onclick="runPkg()">📋 Generate Full Package</button>
+    </div>
+  </div>
+  <div class="loader" id="p-loader">
+    <div class="spin"></div><div class="l-title">Generating Full SEO Package...</div>
+    <div class="l-steps">
+      <div class="lstep on">🔑 50 keywords generate karna</div>
+      <div class="lstep">🗺 Topical map banana</div>
+      <div class="lstep">📋 Content brief + structure</div>
+      <div class="lstep">🔍 Competitor analysis</div>
+      <div class="lstep">⭐ EEAT + schema + FAQs</div>
+      <div class="lstep">🏆 Link building + clusters</div>
+    </div>
+    <div class="pbar"><div class="pfill" id="p-prog"></div></div>
+  </div>
+  <div class="result" id="p-result">
+    <div class="r-header"><div class="r-title">📋 SEO Package <span class="r-badge">20 SECTIONS</span></div><div class="r-acts"><button class="btn btn-o btn-sm" onclick="cpAll('p-out')">📋 Copy</button><button class="btn btn-g btn-sm" onclick="dlMd('p-out','seo-package.md')">⬇ Download</button><button class="btn btn-o btn-sm" onclick="resetR('p')">🔄 New</button></div></div>
+    <div class="r-output"><div class="md" id="p-out"></div></div>
+  </div>
+</div>
+
+<!-- ════ PANEL: CONTENT CREATOR ════ -->
+<div class="panel" id="p-content">
+  <div class="panel-title">✨ AI Content Creator</div>
+  <div class="panel-sub">Topic → complete SEO page: titles, meta, H1-H3 structure, full content draft, EEAT, schema JSON-LD, FAQs, CTAs — sab ek click mein.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px;margin-bottom:14px">
+        <div class="fg"><label>🎯 Topic / Keyword *</label><input type="text" id="c-topic" placeholder="e.g. glass bottles market size 2025"></div>
+        <div class="gr2">
+          <div class="fg"><label>📄 Content Type</label><select id="c-type"><option value="blog">Blog/Article</option><option value="landing">Landing Page</option><option value="product">Product Page</option><option value="pillar">Pillar Content</option><option value="comparison">Comparison</option><option value="how-to">How-To Guide</option></select></div>
+          <div class="fg"><label>👥 Audience</label><input type="text" id="c-aud" placeholder="e.g. market analysts"></div>
+        </div>
+        <div class="gr2">
+          <div class="fg"><label>📏 Length</label><select id="c-depth"><option value="standard">Standard (1200-1800)</option><option value="comprehensive">Comprehensive (2500-3500)</option><option value="pillar">Pillar (4000+)</option></select></div>
+          <div class="fg"><label>🎙 Tone</label><select id="c-tone"><option>Professional</option><option>Conversational</option><option>Technical</option><option>Sales-focused</option></select></div>
+        </div>
+        <div class="fg"><label>🌐 Language</label><select id="c-lang"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
+        <div class="fg"><label>📄 Existing Content (optional)</label><textarea id="c-existing" rows="3" placeholder="Existing content paste karo..."></textarea></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+        <div style="font-size:.7rem;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Competitors</div>
+        <div class="comp-list" id="c-comps"><div class="crow"><div class="cnum">1</div><input type="url" placeholder="https://competitor.com"><textarea placeholder="Content (optional)" rows="2"></textarea><div></div></div></div>
+        <button class="btn btn-o btn-sm" style="margin-top:10px" onclick="addC('c-comps',4)">+ Add Competitor</button>
+      </div>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="mods-hdr"><span class="mods-lbl">Content Modules</span><div class="mods-links"><span class="ml" onclick="selA('c-mods')">All</span></div></div>
+      <div class="mods-grid" id="c-mods">
+        <label class="mod-item on"><input type="checkbox" value="meta" checked>🏷 Title+Meta (3 each)</label>
+        <label class="mod-item on"><input type="checkbox" value="snippet" checked>🌟 Featured Snippet</label>
+        <label class="mod-item on"><input type="checkbox" value="structure" checked>📐 H1→H3 Structure</label>
+        <label class="mod-item on"><input type="checkbox" value="content" checked>✍ Full Content Draft</label>
+        <label class="mod-item on"><input type="checkbox" value="eeat" checked>⭐ EEAT Guide</label>
+        <label class="mod-item on"><input type="checkbox" value="entities" checked>🏢 Entity Map</label>
+        <label class="mod-item on"><input type="checkbox" value="links" checked>🔗 Internal Links</label>
+        <label class="mod-item on"><input type="checkbox" value="schema" checked>🔧 Schema JSON-LD</label>
+        <label class="mod-item on"><input type="checkbox" value="faq" checked>❓ FAQ (7 Qs)</label>
+        <label class="mod-item on"><input type="checkbox" value="cta" checked>📣 CTA Variations</label>
+      </div>
+      <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:16px;border:none;cursor:pointer" onclick="runContent()">✨ Generate Full Content</button>
+    </div>
+  </div>
+  <div class="loader" id="c-loader"><div class="spin"></div><div class="l-title">Generating Content...</div><div class="pbar"><div class="pfill" id="c-prog"></div></div></div>
+  <div class="result" id="c-result">
+    <div class="r-header"><div class="r-title">✨ Content Report</div><div class="r-acts"><button class="btn btn-o btn-sm" onclick="cpAll('c-out')">📋 Copy</button><button class="btn btn-g btn-sm" onclick="dlMd('c-out','content.md')">⬇ Download</button><button class="btn btn-o btn-sm" onclick="resetR('c')">🔄 New</button></div></div>
+    <div class="r-output"><div class="md" id="c-out"></div></div>
+  </div>
+</div>
+
+<!-- ════ PANEL: KEYWORDS ════ -->
+<div class="panel" id="p-keywords">
+  <div class="panel-title">🔑 Keyword Research</div>
+  <div class="panel-sub">Seed keyword → 50 grouped keywords + 30 LSI + intent analysis + quick wins + clusters.</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="fg"><label>🌱 Seed Keyword *</label><input type="text" id="k-seed" placeholder="e.g. glass bottles market"></div>
+      <div class="gr2">
+        <div class="fg"><label>🌍 Market</label><input type="text" id="k-market" placeholder="USA, India..."></div>
+        <div class="fg"><label>🏭 Industry</label><input type="text" id="k-niche" placeholder="packaging..."></div>
+      </div>
+      <div class="fg"><label>🎯 Goal</label><select id="k-goal"><option value="traffic">Organic Traffic</option><option value="leads">Lead Generation</option><option value="sales">Direct Sales</option></select></div>
+      <div class="fg"><label>🔗 Competitor Domains</label><input type="text" id="k-comps" placeholder="comp1.com, comp2.com"></div>
+      <div class="fg"><label>🌐 Language</label><select id="k-lang"><option>English</option><option>Hindi</option><option>Hinglish</option></select></div>
+      <button class="btn" style="width:100%;justify-content:center;padding:13px;background:var(--grad);color:#000;font-family:var(--display);font-weight:700;font-size:.9rem;border-radius:10px;margin-top:8px;border:none;cursor:pointer" onclick="runKw()">🔑 Generate Keywords</button>
+    </div>
+    <div style="background:var(--card);border:1px solid var(--b1);border-radius:14px;padding:20px">
+      <div class="dz" onclick="document.getElementById('k-f').click()" id="k-dz">
+        <div class="dz-icon">📊</div><div class="dz-txt">GSC CSV upload (optional)</div><div class="dz-sub">Existing keywords se better gaps milenge</div>
+      </div>
+      <input type="file" id="k-f" accept=".csv" style="display:none" onchange="lCsv(this,'k')">
+      <div id="k-info" class="hidden" style="margin-top:10px"></div>
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;font-size:.76rem"><span>50 Grouped Keywords</span><span style="color:var(--gr)">✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;font-size:.76rem"><span>Volume + Difficulty</span><span style="color:var(--gr)">✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;font-size:.76rem"><span>Quick Win Highlights 🏆</span><span style="color:var(--gr)">✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;font-size:.76francès"><span>30 LSI/Semantic Terms</span><span style="color:var(--gr)">✓</span></div>
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border:1px solid var(--b1);border-radius:8px;font-size:.76rem"><span>Content Calendar (8 pieces)</span><span style="color:var(--gr)">✓</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="loader" id="k-loader"><div class="spin"></div><div class="l-title">Keyword Research Running...</div><div class="pbar"><div class="pfill" id="k-prog"></div></div></div>
+  <div class="result" id="k-result">
+    <div class="r-header"><div class="r-title">🔑 Keyword Report</div><div class="r-acts"><button class="btn btn-o btn-sm" onclick="cpAll('k-out')">📋 Copy</button><button class="btn btn-g btn-sm" onclick="dlMd('k-out','keywords.md')">⬇ Download</button><button class="btn btn-o btn-sm" onclick="resetR('k')">🔄 New</button></div></div>
+    <div class="r-output"><div class="md" id="k-out"></div></div>
+  </div>
+</div>
+
+</div><!-- end content-area -->
+</div><!-- end layout -->
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h3>⚙ Groq API Key</h3>
+    <p>Free API key — 1 minute setup:</p>
+    <div class="ks">
+      <div class="ki"><div class="kn">1</div><div><a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> → Gmail login</div></div>
+      <div class="ki"><div class="kn">2</div><div>"Create API Key" → copy karo <span style="font-family:var(--mono);color:var(--g);font-size:.74rem">gsk_...</span></div></div>
+      <div class="ki"><div class="kn">3</div><div>Neeche paste karo → Save</div></div>
+    </div>
+    <div class="fg"><label>🔑 API Key</label><input type="password" id="key-inp" placeholder="gsk_..."></div>
+    <div class="m-acts">
+      <button class="btn btn-o" onclick="closeM()">Cancel</button>
+      <button class="btn" style="background:var(--grad);color:#000;font-weight:700;border:none;cursor:pointer;padding:9px 20px;border-radius:8px;font-family:var(--sans);font-size:.78rem" onclick="saveKey()">✓ Save & Start</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let K=localStorage.getItem('gk')||'',gscD=[];
+const GROQ='https://api.groq.com/openai/v1/chat/completions',MDL='llama-3.3-70b-versatile';
+const SYS=`You are a world-class SEO expert, senior content strategist, and Google Helpful Content specialist with 15+ years experience. You provide SURGICAL, page-specific, actionable SEO recommendations. When analyzing pages, ALWAYS specify the EXACT LOCATION — which heading number, which paragraph, what section — where to make changes. Write ready-to-paste content. Never generic advice. Be specific, strategic, data-driven. Use markdown formatting with tables.`;
+
+document.addEventListener('DOMContentLoaded',()=>{updS();if(!K)setTimeout(openM,800);initCi();});
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM();});
+function updS(){const d=document.getElementById('api-dot'),t=document.getElementById('api-txt');if(K){d.classList.add('live');t.textContent='API Ready';}else{d.classList.remove('live');t.textContent='Set API Key';}}
+function openM(){document.getElementById('key-inp').value=K;document.getElementById('modal').classList.add('on');}
+function closeM(){document.getElementById('modal').classList.remove('on');}
+function saveKey(){const v=document.getElementById('key-inp').value.trim();if(!v)return alert('Key daalo!');K=v;localStorage.setItem('gk',v);updS();closeM();}
+function goP(n,b){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.sb-btn').forEach(x=>x.classList.remove('on'));document.getElementById('p-'+n).classList.add('on');b.classList.add('on');}
+function initCi(){document.querySelectorAll('.mod-item input').forEach(i=>i.addEventListener('change',function(){this.closest('.mod-item').classList.toggle('on',this.checked);}));}
+function selA(id){document.querySelectorAll('#'+id+' input').forEach(c=>{c.checked=true;c.closest('.mod-item').classList.add('on');});}
+function desA(id){document.querySelectorAll('#'+id+' input').forEach(c=>{c.checked=false;c.closest('.mod-item').classList.remove('on');});}
+function gChk(id){return[...document.querySelectorAll('#'+id+' input:checked')].map(c=>c.value);}
+function addC(id,mx){const l=document.getElementById(id);if(l.querySelectorAll('.crow').length>=mx)return alert('Max '+mx+'!');const n=l.querySelectorAll('.crow').length+1;const d=document.createElement('div');d.className='crow';d.innerHTML=`<div class="cnum">${n}</div><input type="url" placeholder="https://competitor${n}.com"><textarea placeholder="Content (optional)" rows="2"></textarea><button class="rm" onclick="this.closest('.crow').remove()">✕</button>`;l.appendChild(d);}
+function gComps(id){return[...document.querySelectorAll('#'+id+' .crow')].map(r=>({url:r.querySelector('input[type=url]')?.value?.trim()||'',content:r.querySelector('textarea')?.value?.trim()||''})).filter(c=>c.url||c.content);}
+function addBulk(){const l=document.getElementById('bulk-list');if(l.children.length>=5)return alert('Max 5!');const n=l.children.length+1;const d=document.createElement('div');d.style.cssText='display:flex;gap:8px;align-items:center';d.innerHTML=`<div style="width:26px;height:26px;background:var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--t3);flex-shrink:0">${n}</div><input type="url" placeholder="https://yoursite.com/page-${n}" style="flex:1">`;l.appendChild(d);}
+function clrBulk(){document.getElementById('bulk-list').innerHTML='<div style="display:flex;gap:8px;align-items:center"><div style="width:26px;height:26px;background:var(--b1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.68rem;color:var(--t3);flex-shrink:0">1</div><input type="url" placeholder="https://yoursite.com/page-1"></div>';}
+function gBulk(){return[...document.querySelectorAll('#bulk-list input')].map(i=>i.value.trim()).filter(Boolean);}
+function hDrop(e,p){e.preventDefault();const f=e.dataTransfer.files[0];if(f)procCsv(f,p);document.getElementById(p+'-dz')?.classList.remove('drag');}
+function lCsv(inp,p){procCsv(inp.files[0],p);}
+function procCsv(file,p){const r=new FileReader();r.onload=e=>{const rows=e.target.result.split('\n').map(row=>row.split(',').map(c=>c.trim().replace(/^"|"$/g,'')));gscD=rows.slice(1).filter(r=>r.length>1&&r[0]).map(r=>({query:r[0]||'',clicks:parseInt(r[1])||0,impressions:parseInt(r[2])||0,ctr:parseFloat(r[3])||0,position:parseFloat(r[4])||0})).filter(r=>r.query);if(p==='gsc'){document.getElementById('gsc-cnt').textContent=gscD.length;const tb=document.querySelector('#gsc-tbl tbody');tb.innerHTML=gscD.slice(0,20).map((r,i)=>`<tr><td>${i+1}</td><td>${r.query}</td><td>${r.clicks}</td><td>${r.impressions}</td><td>${(r.ctr*100).toFixed(1)}%</td><td><span class="pb ${r.position<=10?'pt':r.position<=20?'pm':'pl'}">${r.position.toFixed(1)}</span></td></tr>`).join('');document.getElementById('gsc-prev').classList.remove('hidden');}if(p==='k'){document.getElementById('k-info').innerHTML=`<div class="alert al-i">✅ ${gscD.length} GSC queries loaded</div>`;document.getElementById('k-info').classList.remove('hidden');}};r.readAsText(file);}
+async function callAPI(prompt){if(!K){openM();throw new Error('API key set karo');}const res=await fetch(GROQ,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${K}`},body:JSON.stringify({model:MDL,max_tokens:4096,messages:[{role:'system',content:SYS},{role:'user',content:prompt}]})});if(!res.ok){const e=await res.json();throw new Error(e.error?.message||'API Error');}const d=await res.json();return d.choices[0].message.content;}
+const tmrs={};
+function showL(p){document.getElementById(p+'-loader').classList.add('on');const r=document.getElementById(p+'-result');if(r)r.classList.remove('on');animP(p);}
+function hideL(p){document.getElementById(p+'-loader').classList.remove('on');clearInterval(tmrs[p]);}
+function showR(p){const r=document.getElementById(p+'-result');if(r){r.classList.add('on');r.scrollIntoView({behavior:'smooth',block:'start'});}}
+function resetR(p){const r=document.getElementById(p+'-result');if(r)r.classList.remove('on');const o=document.getElementById(p+'-out');if(o)o.innerHTML='';}
+function animP(p){const fill=document.getElementById(p+'-prog');if(!fill)return;const steps=document.querySelectorAll(`#${p}-loader .lstep`);let cur=0;tmrs[p]=setInterval(()=>{if(cur<93){cur+=Math.random()*6+2;if(cur>93)cur=93;fill.style.width=cur+'%';}if(steps.length){const si=Math.floor((cur/100)*steps.length);steps.forEach((s,i)=>{s.classList.toggle('on',i===si);s.classList.toggle('done',i<si);});}},700);}
+function doneP(p){clearInterval(tmrs[p]);const f=document.getElementById(p+'-prog');if(f)f.style.width='100%';document.querySelectorAll(`#${p}-loader .lstep`).forEach(s=>{s.classList.remove('on');s.classList.add('done');});}
+function md2h(md){return md.replace(/^#### (.*$)/gim,'<h4>$1</h4>').replace(/^### (.*$)/gim,'<h3>$1</h3>').replace(/^## (.*$)/gim,'<h2>$1</h2>').replace(/^# (.*$)/gim,'<h1>$1</h1>').replace(/\*\*\*(.*?)\*\*\*/g,'<strong><em>$1</em></strong>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\*(.*?)\*/g,'<em>$1</em>').replace(/```(\w+)?\n([\s\S]*?)```/g,'<pre><code>$2</code></pre>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/^> (.*$)/gim,'<blockquote><p>$1</p></blockquote>').replace(/^---$/gim,'<hr>').replace(/^\d+\. (.*)$/gim,'<li>$1</li>').replace(/^[-*] (.*)$/gim,'<li>$1</li>').replace(/\n\n/g,'</p><p>').replace(/^(?!<[hHuUpPbBlLoO><\/])(.*[^\n])$/gim,m=>m.startsWith('<')?m:`<p>${m}</p>`).replace(/<p><\/p>/g,'').replace(/<p>(<[hH])/g,'$1').replace(/(<\/[hH][1-6]>)<\/p>/g,'$1');}
+function cpAll(id){const t=document.getElementById(id)?.innerText||'';navigator.clipboard.writeText(t).then(()=>{const b=event.target;b.textContent='✓ Copied!';setTimeout(()=>b.textContent='📋 Copy',2000);});}
+function dlMd(id,fn){const t=document.getElementById(id)?.innerText||'';const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/markdown'}));a.download=fn;a.click();}
+
+async function runGap(){
+  const url=document.getElementById('g-url').value.trim(),content=document.getElementById('g-content').value.trim();
+  if(!content&&!url)return alert('Page content paste karo!');if(!K)return openM();
+  const kw=document.getElementById('g-kw').value.trim(),lang=document.getElementById('g-lang').value,mods=gChk('g-mods'),comps=gComps('g-comps');
+  showL('g');
+  const ct=comps.map((c,i)=>`Competitor ${i+1}: ${c.url||'N/A'}\n${c.content?'Content: '+c.content.substring(0,600):''}`).join('\n\n');
+  const prompt=`SURGICAL SEO Gap Analysis. Every fix must have EXACT LOCATION on page.
+
+MY PAGE: URL: ${url||'N/A'} | Keyword: "${kw||'N/A'}"
+Content: ${content?content.substring(0,2000):'Not provided'}
+COMPETITORS: ${ct||'Simulate top 4 for keyword: '+kw}
+MODULES: ${mods.join(', ')} | LANGUAGE: ${lang}
+
+For EVERY issue use this format:
+
+## 🔴/🟡/🟢 [Issue Name] — [Priority: Critical/High/Medium]
+
+**📍 Exact Location:** [Very specific — "H2 #3 ke baad", "Introduction 2nd paragraph mein", "Page end mein conclusion se pehle"]
+
+**❌ Problem:** [What is missing/wrong]
+**💡 Why it matters:** [SEO impact]
+
+**✅ Ready-to-Paste Fix:**
+[Actual content to copy-paste — not description]
+
+---
+
+Cover: 1) Missing H2 sections (with exact insert location + content) 2) Missing keywords (which paragraph + sentence rewrite) 3) Internal links (anchor text + exact placement sentence + page type) 4) EEAT gaps (exact location) 5) Featured snippet block (40-60 words, exact placement) 6) FAQ section (location + all 7 Qs with answers) 7) CTA improvements (copy + placement) 8) Schema JSON-LD code
+
+End with:
+## 📊 Comparison Table | Metric | My Page | Avg Competitor | Gap |
+## 🏆 Priority Action List | # | Action | Location | Time | Impact |
+## 📅 30-Day Plan (Week 1-4 with exact page locations)`;
+  try{const r=await callAPI(prompt);doneP('g');hideL('g');document.getElementById('g-out').innerHTML=md2h(r);showR('g');}catch(e){hideL('g');alert('Error: '+e.message);}
+}
+
+async function runAudit(){
+  const kw=document.getElementById('a-kw').value.trim(),content=document.getElementById('a-content').value.trim();
+  if(!kw)return alert('Keyword daalo!');if(!content)return alert('Content paste karo!');if(!K)return openM();
+  const url=document.getElementById('a-url').value.trim(),wc=document.getElementById('a-wc').value.trim(),country=document.getElementById('a-country').value.trim()||'USA',lang=document.getElementById('a-lang').value,mods=gChk('a-mods');
+  showL('a');
+  const prompt=`SURGICAL On-Page SEO Audit with exact fixes:
+URL: ${url||'N/A'} | Keyword: "${kw}" | Country: ${country} | Words: ${wc||'?'} | Language: ${lang}
+Content: ${content.substring(0,2500)}
+Modules: ${mods.join(', ')}
+
+## 📊 SEO Scorecard (table) → Overall: X/100
+## 🏷 Title: Current → **EXACT REWRITE** (char count)
+## 📝 Meta: Current → **EXACT REWRITE** (char count)
+## 📐 H1-H6 detected → Issues → **Complete recommended structure**
+## 🔑 "${kw}" placement check (title/H1/first100words/meta ✓/✗) → density → missing keywords → **exact sentence rewrites**
+## 🔗 Internal links: detected → 8 missing with anchor+placement+page type
+## 🔧 Schema → **Ready-to-paste JSON-LD**
+## 🌟 Featured snippet: **Exact 40-60 word block + where to place**
+## ⭐ EEAT: what's present vs missing → specific additions
+## ⚡ Core Web Vitals content tips
+## 🎯 Top 15 Priority Fixes | # | Fix | Location | Paste-ready content | Impact |`;
+  try{const r=await callAPI(prompt);doneP('a');hideL('a');document.getElementById('a-out').innerHTML=md2h(r);showR('a');}catch(e){hideL('a');alert('Error: '+e.message);}
+}
+
+async function runGsc(){
+  if(!gscD.length)return alert('CSV upload karo!');if(!K)return openM();
+  const domain=document.getElementById('gsc-domain').value.trim(),niche=document.getElementById('gsc-niche').value.trim(),goal=document.getElementById('gsc-goal').value,mods=gChk('gsc-mods');
+  const qw=gscD.filter(r=>r.position>=5&&r.position<=20).slice(0,30),lc=gscD.filter(r=>r.impressions>100&&r.ctr<0.03).slice(0,20);
+  showL('gsc');
+  const prompt=`GSC Analysis: Domain:${domain||'N/A'} Industry:${niche||'N/A'} Goal:${goal} Queries:${gscD.length}
+TOP50: ${gscD.slice(0,50).map(r=>`${r.query}|${r.clicks}|${r.impressions}|${(r.ctr*100).toFixed(1)}%|${r.position.toFixed(1)}`).join('\n')}
+QUICK WINS(${qw.length}): ${qw.map(r=>`${r.query}|${r.position.toFixed(1)}|${r.impressions}`).join('\n')}
+LOW CTR(${lc.length}): ${lc.map(r=>`${r.query}|${r.impressions}|${(r.ctr*100).toFixed(1)}%`).join('\n')}
+Modules: ${mods.join(', ')}
+
+## 📊 Overview | 🏆 Quick Wins Table | 📈 Low CTR Fixes with new title suggestions | 🗂 Keyword Clusters | ⚠ Cannibalization | 🏷 Title Rewrites (old→new) | 📋 Content Gaps Table | 📊 Priority Matrix (4 quadrants) | 📅 30-Day Plan (Week 1-4) | 💡 Advanced Insights`;
+  try{const r=await callAPI(prompt);doneP('gsc');hideL('gsc');document.getElementById('gsc-out').innerHTML=md2h(r);showR('gsc');}catch(e){hideL('gsc');alert('Error: '+e.message);}
+}
+
+async function runBulk(){
+  const urls=gBulk();if(!urls.length)return alert('URLs daalo!');if(!K)return openM();
+  const kw=document.getElementById('bulk-kw').value.trim(),mods=gChk('bulk-mods');
+  showL('bulk');
+  const prompt=`Bulk SEO audit: ${urls.map((u,i)=>`Page ${i+1}: ${u}`).join(' | ')} | Keyword: ${kw||'N/A'} | Modules: ${mods.join(', ')}
+For each: SEO Score/100 + top 3 issues + top 3 fixes.
+Then: Comparison table + rankings + universal fixes + priority action list.`;
+  try{const r=await callAPI(prompt);doneP('bulk');hideL('bulk');document.getElementById('bulk-out').innerHTML=md2h(r);showR('bulk');}catch(e){hideL('bulk');alert('Error: '+e.message);}
+}
+
+async function runPkg(){
+  const topic=document.getElementById('p-topic').value.trim();if(!topic)return alert('Topic daalo!');if(!K)return openM();
+  const country=document.getElementById('p-country').value.trim()||'USA',niche=document.getElementById('p-niche').value.trim(),comps=document.getElementById('p-comps').value.trim(),article=document.getElementById('p-article').value.trim(),depth=document.getElementById('p-depth').value,lang=document.getElementById('p-lang').value,mods=gChk('p-mods');
+  showL('p');
+  const prompt=`COMPLETE 20-section SEO Package for "${topic}" | Country:${country} | Industry:${niche||'N/A'} | Competitors:${comps||'simulate'} | Depth:${depth} | Language:${lang} | Modules:${mods.join(', ')}
+${article?'MY ARTICLE:\n'+article.substring(0,1200):''}
+
+Generate ALL sections with ## headings. Specific + strategic + data-driven:
+
+## 🔑 1. Keyword Research (50)
+Info(13)|Commercial(13)|Trans(12)|Nav(12) — Table: |#|Keyword|Volume|Difficulty|Intent|
+
+## 🎯 2. Search Intent Analysis
+3 buckets + content format + word count + above-fold strategy
+
+## 🗺 3. Topical Authority Map
+Pillar + 6 clusters (4-5 articles each)
+
+## 📋 4. SEO Content Brief
+Full table + H1→H2→H3 structure with notes
+
+## 📝 5. Blog Outline
+Section-by-section with word counts
+
+## 🔍 6. Competitor Analysis
+Table + gaps + weaknesses + winning angle
+
+## 🧬 7. Semantic/NLP Keywords (30)
+Table: |#|Term|Type|Placement|
+
+## 🔎 8. Content Gap Analysis
+Missing sections + data + priority additions
+
+## 🔗 9. Internal Linking (10 links)
+Table + hub-spoke model
+
+## ⭐ 10. EEAT Optimization
+Experience/Expertise/Authority/Trust — specific actions
+
+## 🌟 11. Featured Snippet
+Ready-to-paste answer (40-60 words) + placement
+
+## 📣 12. SEO Titles (20)
+Numbered + char count + mark TOP 3 🏆
+
+## 📝 13. Meta Descriptions (10)
+Under 155 chars + mark TOP 3 🏆
+
+## ❓ 14. FAQs (10) + Schema JSON-LD
+Q+answer each + complete JSON-LD code
+
+## 🏆 15. Link Building (20)
+Table: |#|Strategy|Target|Anchor|Difficulty|
+
+## 🔄 16. Content Refresh Guide
+Table: |Type|Action|Frequency|
+
+## ✅ 17. SEO Checklist
+On-page(10)+Technical(10)+Content(8)+UX(7)
+
+## 📚 18. Topic Clusters (30)
+Table: |#|Title|Keyword|Intent|Priority|
+
+## 📱 19. Google Discover (10)
+Title+why it works+thumbnail angle
+
+## ⚙ 20. Programmatic SEO
+6-8 templates with examples+scale
+
+## 🎯 Priority Action List (top 15 by impact)`;
+  try{const r=await callAPI(prompt);doneP('p');hideL('p');document.getElementById('p-out').innerHTML=md2h(r);showR('p');}catch(e){hideL('p');alert('Error: '+e.message);}
+}
+
+async function runContent(){
+  const topic=document.getElementById('c-topic').value.trim();if(!topic)return alert('Topic daalo!');if(!K)return openM();
+  const type=document.getElementById('c-type').value,aud=document.getElementById('c-aud').value.trim(),depth=document.getElementById('c-depth').value,tone=document.getElementById('c-tone').value,lang=document.getElementById('c-lang').value,mods=gChk('c-mods'),comps=gComps('c-comps'),existing=document.getElementById('c-existing').value.trim();
+  showL('c');
+  const prompt=`Complete SEO content: "${topic}" | Type:${type} | Audience:${aud||'General'} | Depth:${depth} | Tone:${tone} | Language:${lang} | Modules:${mods.join(', ')}
+${existing?'EXISTING:\n'+existing.substring(0,600):''}${comps.length?'\nCOMPETITORS:\n'+comps.map((c,i)=>`${i+1}: ${c.url}`).join('\n'):''}
+
+## 🏷 Title Options (3) | ## 📝 Meta Options (3) | ## 🌟 Featured Snippet (40-60w ready-to-paste) | ## 📐 H1→H3 Structure | ## ✍ Full Content (${depth==='standard'?'1200-1800':depth==='comprehensive'?'2500-3500':'4000+'} words, human-like, data-rich) | ## ⭐ EEAT Guide | ## 🏢 Entity Map (10 entities+placement) | ## 🔗 Internal Links Table | ## 🔧 Schema JSON-LD | ## ❓ FAQ (7 Qs+answers) | ## 📣 CTAs (Primary+Mid+Footer, 3 copies each) | ## 🔍 Competitor Gaps (MUST ADD/RECOMMENDED/OPTIONAL) | ## 🎯 Priority Actions (15)`;
+  try{const r=await callAPI(prompt);doneP('c');hideL('c');document.getElementById('c-out').innerHTML=md2h(r);showR('c');}catch(e){hideL('c');alert('Error: '+e.message);}
+}
+
+async function runKw(){
+  const seed=document.getElementById('k-seed').value.trim();if(!seed)return alert('Seed keyword daalo!');if(!K)return openM();
+  const market=document.getElementById('k-market').value.trim()||'USA',niche=document.getElementById('k-niche').value.trim(),goal=document.getElementById('k-goal').value,comps=document.getElementById('k-comps').value.trim(),lang=document.getElementById('k-lang').value;
+  const gscCtx=gscD.length?`\nGSC DATA:\n`+gscD.slice(0,25).map(r=>`${r.query}|${r.position.toFixed(1)}`).join('\n'):'';
+  showL('k');
+  const prompt=`Keyword research "${seed}" | Market:${market} | Niche:${niche||'General'} | Goal:${goal} | Competitors:${comps||'simulate'} | Language:${lang}${gscCtx}
+
+## 🌱 Primary (10-12): Table |#|Keyword|Volume|Difficulty|Intent|CPC|Priority|
+## 📌 Secondary (12-15): Same table
+## 🎯 Long-tail Quick Wins (15-20): Table |#|Keyword|Volume|Difficulty|Intent|Why🏆|
+## 🧠 LSI/Semantic (12): Grouped by cluster
+## ❓ Question Keywords (15): Research|Comparison|Solution groups
+## 🎯 Intent Deep Dive: Info(10)|Commercial(8)|Trans(8)|Nav(5)
+## 🗂 Keyword Clusters (5-7): each=1 page
+## ⚠ Negative Keywords (10): |Keyword|Why Avoid|
+## 📋 Content Calendar (8): |Title|Keywords|Intent|Priority|
+## 🏆 Top 10 Quick Wins
+## 💡 Strategy Summary (2-3 para)`;
+  try{const r=await callAPI(prompt);doneP('k');hideL('k');document.getElementById('k-out').innerHTML=md2h(r);showR('k');}catch(e){hideL('k');alert('Error: '+e.message);}
+}
+</script>
+</body>
+</html>
